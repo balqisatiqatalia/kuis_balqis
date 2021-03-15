@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'Result.dart';
+import 'dart:math';
 
 void main() {
   runApp(MyApp());
@@ -13,8 +15,18 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
    int berat= 0;
    int tinggi=0;
-
-
+  String cBMI=" ";
+  double bmi=0;
+void perhitungan(){
+  setState(() {
+     bmi = berat/pow(tinggi/100,2);
+    cBMI;
+    if (bmi>=28) cBMI="Obese";
+    else if (bmi>=23) cBMI="Overweight";
+    else if (bmi>=17.5) cBMI="Normal";
+    else cBMI="Underweight";
+    });
+}
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -86,15 +98,20 @@ class _MyAppState extends State<MyApp> {
               color: Colors.blue,
               alignment: Alignment.center,
            child: RaisedButton(
+              onPressed: () {
+               perhitungan();
+              },
               child: Text(
                 'Konversi',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                     color: Colors.white),
+               
               ),
             ),
             ),
+             BMIResult(cBMI: cBMI, bmi: bmi),
                 ],
               ),
       ),
